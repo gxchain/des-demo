@@ -3,6 +3,7 @@ package com.gxb.block.des.demo.controller.datasource;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gxb.sdk.des.client.DatasourceClient;
+import com.gxb.sdk.des.model.dto.ResponseObject;
 import com.gxb.sdk.des.model.param.DataRequestParam;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ public class DataSourceClientController {
     public void init() {
         //1、初始化，启动心跳线程
         //创建client，入参为私钥、主链的账号、des服务地址
-        client = new DatasourceClient("5JiZPuQbM5nHa4oX5VK7AemEv393jjnPLm...", "1.2.694723", "http://172.19.19.187:6388");
+        client = new DatasourceClient("5JiZPuQbM5nHa4oX5VK7AemEv393jjnPLm...", "1.2.694723", "http://des.gxchain.cn");
         log.info("DatasourceClient初始化完成");
         //启动心跳定时线程
         ScheduledExecutorService es = Executors.newScheduledThreadPool(1);
@@ -51,13 +52,13 @@ public class DataSourceClientController {
     public Object queryData(@RequestBody DataRequestParam requestParam) {
         //对商户参数 解密
         log.debug("解密参数");
-        JSONObject param = client.decrypt(requestParam.getParams(), requestParam.getPublicKey());
+        JSONObject param = client.decrypt(requestParam);
         //根据商户的请求参数查询数据
         log.debug("查询数据");
-        JSONObject data = queryData(param);
+        ResponseObject data = queryData(param);
         //对查询结果加密
         log.debug("加密查询的数据");
-        return client.encrypt(data,requestParam.getPublicKey());
+        return client.encrypt(data,requestParam);
     }
 
     /**
@@ -66,10 +67,10 @@ public class DataSourceClientController {
      * @param param
      * @return
      */
-    private JSONObject queryData(JSONObject param) {
-        String result = "{\"data\":{}}";
+    private ResponseObject queryData(JSONObject param) {
+        String result = "{\"data\":{},\"success\":true}";
         if (!StringUtils.isBlank(result)) {
-            return JSON.parseObject(result).getJSONObject("data");
+            return JSON.parseObject(result,ResponseObject.class);
         }
         return null;
     }
