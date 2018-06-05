@@ -18,8 +18,8 @@ public class MerchantClientDemo {
 
     public static void init() {
         //1、初始化
-        //创建client，入参为私钥、主链的账号、des服务地址
-        client = new MerchantClient("5JiZPuQHa4cP3j5oX5VK7mEv393jjn...", "1.2.694723", "http://172.19.19.187:6388");
+        //创建client，入参为私钥、主链的账号
+        client = new MerchantClient("5JiZPuQHa4cP3j5oX5VK7mEv393jjn...", "1.2.694723");
         log.info("MerchantClient初始化完成");
     }
 

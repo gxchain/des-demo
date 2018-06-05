@@ -31,8 +31,8 @@ public class DataSourceClientController {
     @PostConstruct
     public void init() {
         //1、初始化，启动心跳线程
-        //创建client，入参为私钥、主链的账号、des服务地址
-        client = new DatasourceClient("5JiZPuQbM5nHa4oX5VK7AemEv393jjnPLm...", "1.2.694723", "http://des.gxchain.cn");
+        //创建client，入参为私钥、主链的账号
+        client = new DatasourceClient("5JiZPuQbM5nHa4oX5VK7AemEv393jjnPLm...", "1.2.694723");
         log.info("DatasourceClient初始化完成");
         //启动心跳定时线程
         ScheduledExecutorService es = Executors.newScheduledThreadPool(1);
