@@ -23,6 +23,7 @@ public class BlacklistCLientDemo {
 
     @Test
     public void getQuestionToken() throws Exception {
+        //黑名单共债查询结果
         List<LoanInfo> loanInfoList = new ArrayList<>();
         LoanInfo loanInfo = LoanInfo.builder().platform(client.getAccountId()).
                 platformName("XX贷").
@@ -47,6 +48,9 @@ public class BlacklistCLientDemo {
         loanInfoList.add(loanInfo);
         loanInfoList.add(loanInfo2);
         try {
+
+            //请求网关获取答题token，入参为DES的requestId、商户回调地址、黑名单共债查询结果
+            //回调地址格式http://XXX.com/XXX/XXX?a=&b=&token=
             QuestionTokenResult result = client.getQuestionToken("QmRNBXRuoNzTsmfr973uTFuDRoas5NmQcCFModrWeJp88D", "http://127.0.0.1/question?token=", loanInfoList);
             log.info(JSON.toJSONString(result));
         } catch (GxbApiException e) {
@@ -59,6 +63,7 @@ public class BlacklistCLientDemo {
     @Test
     public void getQuestionReport() throws Exception {
         try {
+            //在收到网关访问回调地址的请求后根据答题token获取答题报告
             List<QuestionReport> questionReports = client.getQuestionReport("GXBBL9571018478134208b936c08c8fffc102a");
             log.info(JSON.toJSONString(questionReports));
         } catch (GxbApiException e) {
