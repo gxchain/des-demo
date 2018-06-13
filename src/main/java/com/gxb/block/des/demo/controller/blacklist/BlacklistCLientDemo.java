@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 public class BlacklistCLientDemo {
 
-    BlacklistGatewayClient client = new BlacklistGatewayClient("5Ka9YjFQtfUUX2DdnqkaPWH1rVeSe...", "1.2.19", "https://survey.gxb.io");
+    BlacklistGatewayClient client = new BlacklistGatewayClient("5Ka9YjFQtfUUX2DdnqkaPWH1rVeSe...", "1.2.19");
 
     @Test
     public void getQuestionToken() throws Exception {
