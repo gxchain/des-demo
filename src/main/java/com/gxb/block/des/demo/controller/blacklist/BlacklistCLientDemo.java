@@ -25,8 +25,8 @@ public class BlacklistCLientDemo {
     public void getQuestionToken() throws Exception {
         //黑名单共债查询结果
         List<LoanInfo> loanInfoList = new ArrayList<>();
-        LoanInfo loanInfo = LoanInfo.builder().platform(client.getAccountId()).
-                platformName("XX贷").
+        LoanInfo loanInfo = LoanInfo.builder().platform("1.2.902895").
+                appId("jx").
                 loanType(1).
                 loanAmount("1-1.5").
                 loanStatus(3).
@@ -35,8 +35,8 @@ public class BlacklistCLientDemo {
                 contractDate("2017-05-01").
                 build();
 
-        LoanInfo loanInfo2 = LoanInfo.builder().platform(client.getAccountId()).
-                platformName("OO贷").
+        LoanInfo loanInfo2 = LoanInfo.builder().platform("1.2.922685").
+                appId("").
                 loanType(2).
                 loanAmount("4-4.5").
                 loanStatus(2).
