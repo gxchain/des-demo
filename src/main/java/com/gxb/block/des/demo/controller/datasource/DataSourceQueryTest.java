@@ -46,7 +46,5 @@ public class DataSourceQueryTest {
         if (StringUtils.isNotBlank(data)) {
             log.info("decrypt:" + MsgCryptUtil.decrypt(privateKey, datasourcePublicKey, nonce, data));
         }
-        String check = idcard.substring(idcard.length()-6);
-        log.info(check+":"+DigestUtils.md5Hex(check));
     }
 }
