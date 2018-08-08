@@ -11,6 +11,7 @@ import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
+ * 数据源自测类
  * @author liruobin
  * @since 2018/8/7 下午8:25
  */
@@ -19,7 +20,7 @@ public class DataSourceQueryTest {
     public static void main(String[] args) {
         //数据源查询url
         String url = "";
-        //数据产品参数
+        //组织数据产品参数
         JSONObject param = new JSONObject();
         String idcard = "445121199003294599";
         param.put("idcard_md5", DigestUtils.md5Hex(idcard));
@@ -35,15 +36,17 @@ public class DataSourceQueryTest {
         String publicKey = "GXC4ywUcU8h6zPqESvAMkGREmmg9r54...........";
         //数据源公钥
         String datasourcePublicKey = publicKey;
-
+        //组织请求参数
         DataRequestParam requestParam = DataRequestParam.builder().productId(10).params(MsgCryptUtil.encrypt(privateKey, datasourcePublicKey, nonce, params.toJSONString())).
                 publicKey(publicKey).nonce(nonce).merchantAccountId("1.2.323232").build();
         log.info(JSON.toJSONString(param));
+        //获取查询结果
         String result = HttpUtil.sendPost(url, JSON.toJSONString(requestParam));
         log.info("result:{}", result);
         JSONObject resultJson = JSON.parseObject(result);
         String data = resultJson.getString("data");
         if (StringUtils.isNotBlank(data)) {
+            //得到解密后的结果
             log.info("decrypt:" + MsgCryptUtil.decrypt(privateKey, datasourcePublicKey, nonce, data));
         }
     }

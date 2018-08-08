@@ -1,11 +1,9 @@
 package com.gxb.block.des.demo.controller.datasource;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gxb.sdk.des.client.DatasourceClient;
 import com.gxb.sdk.des.model.dto.ResponseObject;
 import com.gxb.sdk.des.model.param.DataRequestParam;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +18,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 数据源接入示例
+ *
  * @author liruobin
  * @since 2018/4/11 下午12:06
  */
@@ -32,7 +32,7 @@ public class DataSourceClientController {
     public void init() {
         //1、初始化，启动心跳线程
         //创建client，入参为私钥、主链的账号、数据查询接口url
-        client = new DatasourceClient("5JiZPuQbM5nHa4oX5VK7AemEv393jjnPLm...", "1.2.694723","http://127.0.0.1/query");
+        client = new DatasourceClient("5JiZPuQbM5nHa4oX5VK7AemEv393jjnPLm...", "1.2.694723", "http://127.0.0.1/query");
         log.info("DatasourceClient初始化完成");
         //启动心跳定时线程
         ScheduledExecutorService es = Executors.newScheduledThreadPool(1);
@@ -47,6 +47,7 @@ public class DataSourceClientController {
         log.info("启动定时心跳线程");
 
     }
+
     //对外暴露的查询接口
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public Object queryData(@RequestBody DataRequestParam requestParam) {
@@ -58,20 +59,16 @@ public class DataSourceClientController {
         ResponseObject data = queryData(param);
         //对查询结果加密
         log.debug("加密查询的数据");
-        return client.encrypt(data,requestParam);
+        return client.encrypt(data, requestParam);
     }
 
     /**
-     *
-     *
      * @param param
      * @return
      */
     private ResponseObject queryData(JSONObject param) {
-        String result = "{\"data\":{},\"success\":true}";
-        if (!StringUtils.isBlank(result)) {
-            return JSON.parseObject(result,ResponseObject.class);
-        }
-        return null;
+        //数据源实现自己的查询逻辑,组织反馈结果
+        Object data = null;
+        return ResponseObject.builder().data(data).success(true).build();
     }
 }

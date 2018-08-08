@@ -19,7 +19,7 @@ public class MerchantClientDemo {
     public static void init() {
         //1、初始化
         //创建client，入参为私钥、主链的账号
-        client = new MerchantClient("5JiZPuQHa4cP3j5oX5VK7mEv393jjn...", "1.2.694723");
+        client = new MerchantClient("5KHoUrUTTwAyJfJPLbfmw8KK3DbEGq2Rt............", "1.2.694723");
         log.info("MerchantClient初始化完成");
     }
 
@@ -29,7 +29,7 @@ public class MerchantClientDemo {
     }
 
     public static void main(String[] args) {
-        //初始化
+        //初始化--初始化执行一次就够了
         init();
         long l1 = System.currentTimeMillis();
         try {
